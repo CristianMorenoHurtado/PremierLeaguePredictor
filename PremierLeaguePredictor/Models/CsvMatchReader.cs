@@ -15,7 +15,7 @@ namespace PremierLeaguePredictor.Models
         /// <returns>A list of MatchData objects.</returns>
         public static List<MatchData> ReadCsvFile()
         {
-            string filepath = $@"..\wwwroot\resources\results.csv";
+            string filepath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "resources", "results.csv");
 
             using StreamReader reader = new(filepath);
             using CsvReader csv = new(reader, new CsvConfiguration(CultureInfo.InvariantCulture)
@@ -25,7 +25,7 @@ namespace PremierLeaguePredictor.Models
             });
 
             IEnumerable<MatchData> records = csv.GetRecords<MatchData>();
-            return new List<MatchData>(records);
+            return records.ToList();
         }
     }
 }
